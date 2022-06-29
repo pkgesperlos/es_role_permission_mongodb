@@ -19,6 +19,7 @@
     "extra": {
         "laravel": {
             "providers": [
+            	"Esperlos98\\EsAccess\\Providers\\EsAccessServiceProvider"
             ]
         }
     },

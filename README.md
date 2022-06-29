@@ -23,7 +23,7 @@ php artisan migrate
 You can publish the config file with:
 
 ``` bash
-composer require mostafamaklad/laravel-permission-mongodb
+php artisan vendor:publish --provider="Maklad\Permission\PermissionServiceProvider" --tag="config"
 ```
 
 ## When published, the config/permission.php config file contains:
