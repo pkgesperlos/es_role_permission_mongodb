@@ -8,7 +8,7 @@
  ```
 
 ``` bash
- ..............
+ composer require esperlos98/esaccess
 ```
 ## You can publish the migration with:
 
