@@ -1,0 +1,28 @@
+{
+    "name": "esperlos98/esaccess",
+    "description": "this packagef for authorize with mongo",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Esperlos98\\EsAccess\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=8.0.0"
+    },
+    "authors": [
+        {
+            "name": "mohsengreen1388",
+            "email": "mohsengreen1388@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+  
+}
