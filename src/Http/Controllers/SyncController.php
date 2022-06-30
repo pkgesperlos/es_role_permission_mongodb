@@ -8,9 +8,12 @@ use Illuminate\Http\Request;
 use Maklad\Permission\Models\Role;
 use Esperlos98\EsAccess\Repository\Validate\ValidateRequest;
 use Esperlos98\EsAccess\Lib\Config\ValidateOptions;
+use Symfony\Component\HttpFoundation\Response;
 
 class SyncController
 {
+    const  MASSAGE = "sync sucssfulled";
+
     public function role(Request $request, ValidateOptions $validate)
     {
 
@@ -22,7 +25,10 @@ class SyncController
         };
 
         $user = User::find($request->user_id);
-        $user->syncRoles();
+        if($user){
+            $user->syncRoles();
+        }
+
         $jsonRoleIds = $request->role_ids;
         $roleIds  = json_decode($jsonRoleIds, true);
 
@@ -38,11 +44,12 @@ class SyncController
                 $user->assignRole($role);
             }
         }
+
+        return response()->json(self::MASSAGE,Response::HTTP_OK);
     }
 
     public function permission(Request $request , ValidateOptions $validate)
     {
-
         $validate =  resolve(ValidateRequest::class)->
             validate($request, $validate::VALIDATE["SYNC_PERMISSION_AND_USER"], $validate::VALIDATE["MASSAGES"]);
 
@@ -51,10 +58,12 @@ class SyncController
         };
 
         $user = User::find($request->user_id);
-        $user->syncPermissions();
+        if($user){
+            $user->syncPermissions();
+        }
+
         $jsonPermissionIds = $request->permission_ids;
         $permissionIds  = json_decode($jsonPermissionIds, true);
-
         if($permissionIds == Null){
             return Null;
         }
@@ -67,5 +76,8 @@ class SyncController
                 $user->assignPermission($permission);
             }
         }
+
+        return response()->json(self::MASSAGE,Response::HTTP_OK);
     }
 }
+

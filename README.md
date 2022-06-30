@@ -229,7 +229,7 @@ php artisan permission:create-permission "user edit" apiMongo //or whatever guar
 {"ids":["62bbd2a45898f83b7905f813","62bbd092b9fa8fc76f011182"]}
 ```
 > ### for assign role to user
-> <p>yourdomine/es/api/v1/assignUser</p>
+> <p>yourdomine/es/api/v1/assignRoleToUser</p>
 > <p>parameters : user_id , role_ids</p>
 #### example role_ids json
 ``` bash 
