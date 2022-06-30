@@ -16,9 +16,6 @@
 php artisan vendor:publish --provider="Maklad\Permission\PermissionServiceProvider" --tag="migrations"   
 ```
 
-``` bash
-php artisan migrate
-```
 
 You can publish the config file with:
 
@@ -198,13 +195,13 @@ php artisan permission:create-role writer yourGuards
 #### role
 
 ``` bash
-php artisan permission:create-role "admin" apiMongo
+php artisan permission:create-role "admin" apiMongo // or whatever guard you want to use
 
 ```
 #### permission
 
 ``` bash
-php artisan permission:create-permission "user edit" apiMongo
+php artisan permission:create-permission "user edit" apiMongo //or whatever guard you want to use
 
 ```
 
