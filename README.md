@@ -244,7 +244,7 @@ php artisan permission:create-permission "user edit" apiMongo //or whatever guar
 ```
 > ### for sync permission or delete and update
 > <p>yourdomine/es/api/v1/syncPermission</p>
-> <p>parameters : user_id , permission_id</p>
+> <p>parameters : role_id , permission_id</p>
 #### example permission_id 
 ``` bash 
 "62bbd092b9fa8fc76f011182"
