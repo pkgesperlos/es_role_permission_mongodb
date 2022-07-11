@@ -14,36 +14,28 @@ class AssignRoleToPermissionController
 {
     const MASSAGE = "assign sucssfulled";
 
-    public function assign(Request $request,ValidateOptions $validate)
+    public function assign(Request $request, ValidateOptions $validate)
     {
-        $validate =  resolve(ValidateRequest::class)->
-            validate($request,$validate::VALIDATE["ROLE_AND_PERMISSION_ID"],$validate::VALIDATE["MASSAGES"]);
+        $validate =  resolve(ValidateRequest::class)->validate($request, $validate::VALIDATE["ROLE_AND_PERMISSION_ID"], $validate::VALIDATE["MASSAGES"]);
 
-        if($validate){
+        if ($validate) {
             return $validate;
         };
 
-       $role = Role::find($request->role_id);
+        $role = Role::find($request->role_id);
 
-       $jsonPermissionIds = $request->permission_ids;
-       $permissionIds  = json_decode($jsonPermissionIds,true);
+        $permissionId = $request->permission_id;
 
-       if($permissionIds == Null){
+        if ($permissionId == Null) {
             return Null;
-       }
-
-       foreach ($permissionIds["ids"] as  $permissionId) {
-
-            $permission = Permission::find($permissionId);
-
-            if(isset($role) && isset($permission)){
-                $role->givePermissionTo($permission);
-            }
-
         }
 
-        return response()->json(self::MASSAGE,Response::HTTP_OK);
+        $permission = Permission::find($permissionId);
 
+        if (isset($role) && isset($permission)) {
+            $role->givePermissionTo($permission);
+        }
+
+        return response()->json(self::MASSAGE, Response::HTTP_OK);
     }
-
 }

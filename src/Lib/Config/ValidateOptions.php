@@ -13,19 +13,19 @@ class ValidateOptions
         ],
         "ROLE_AND_PERMISSION_ID" => [
             "role_id" =>  "required|string",
-            "permission_ids" => "required",
+            "permission_id" => "required",
         ],
         "ROLE_AND_USER_ID" => [
             "user_id" =>  "required|string",
-            "role_ids" => "required",
+            "role_id" => "required",
         ],
         "SYNC_ROLE_AND_USER" => [
             "user_id" =>  "required|string",
-            "role_ids" => "required",
+            "role_id" => "required",
         ],
-        "SYNC_PERMISSION_AND_USER" => [
-            "user_id" =>  "required|string",
-            "permission_ids" => "required",
+        "SYNC_PERMISSION_AND_ROLE" => [
+            "role_id" =>  "required|string",
+            "permission_id" => "required",
         ],
 
         "MASSAGES" => [
@@ -37,3 +37,4 @@ class ValidateOptions
         ]
     ];
 }
+

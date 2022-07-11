@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Maklad\Permission\Models\Role;
 use Esperlos98\EsAccess\Repository\Validate\ValidateRequest;
 use Esperlos98\EsAccess\Lib\Config\ValidateOptions;
+use Maklad\Permission\Models\Permission;
 use Symfony\Component\HttpFoundation\Response;
 
 class SyncController
@@ -17,26 +18,25 @@ class SyncController
     public function role(Request $request, ValidateOptions $validate)
     {
 
-        $validate =  resolve(ValidateRequest::class)->
-            validate($request, $validate::VALIDATE["SYNC_ROLE_AND_USER"], $validate::VALIDATE["MASSAGES"]);
+        $validate =  resolve(ValidateRequest::class)->validate($request, $validate::VALIDATE["SYNC_ROLE_AND_USER"], $validate::VALIDATE["MASSAGES"]);
 
         if ($validate) {
             return $validate;
         };
 
         $user = User::find($request->user_id);
-        if($user){
+        $listRolesUser = $user->role_ids;
+        if ($user) {
             $user->syncRoles();
         }
 
-        $jsonRoleIds = $request->role_ids;
-        $roleIds  = json_decode($jsonRoleIds, true);
-
-        if($roleIds == Null){
+        $roleId = $request->role_id;
+        $roles = $this->filter($listRolesUser,$roleId);
+        if ($roleId == Null) {
             return Null;
         }
 
-        foreach ($roleIds["ids"] as $roleId) {
+        foreach ($roles as $roleId) {
 
             $role = Role::find($roleId);
 
@@ -45,39 +45,40 @@ class SyncController
             }
         }
 
-        return response()->json(self::MASSAGE,Response::HTTP_OK);
+        return response()->json(self::MASSAGE, Response::HTTP_OK);
     }
 
-    public function permission(Request $request , ValidateOptions $validate)
+    public function permission(Request $request, ValidateOptions $validate)
     {
-        $validate =  resolve(ValidateRequest::class)->
-            validate($request, $validate::VALIDATE["SYNC_PERMISSION_AND_USER"], $validate::VALIDATE["MASSAGES"]);
+        $validate =  resolve(ValidateRequest::class)->validate($request, $validate::VALIDATE["SYNC_PERMISSION_AND_ROLE"], $validate::VALIDATE["MASSAGES"]);
 
         if ($validate) {
             return $validate;
         };
 
-        $user = User::find($request->user_id);
-        if($user){
-            $user->syncPermissions();
+        $role = Role::find($request->role_id);
+        $listRolePermissions = $role->permission_ids;
+        if ($role) {
+            $role->syncPermissions();
         }
 
-        $jsonPermissionIds = $request->permission_ids;
-        $permissionIds  = json_decode($jsonPermissionIds, true);
-        if($permissionIds == Null){
-            return Null;
-        }
+        $PermissionId = $request->permission_id;
+        $permissions = $this->filter($listRolePermissions, $PermissionId);
 
-        foreach ($permissionIds["ids"] as $permissionId) {
+        foreach ($permissions as $permissionId) {
 
-            $role = Role::find($permissionId);
+            $permission = Permission::find($permissionId);
 
-            if (isset($user) && isset($permission)) {
-                $user->assignPermission($permission);
+            if (isset($role) && isset($permission)) {
+                $role->givePermissionTo($permission);
             }
         }
 
-        return response()->json(self::MASSAGE,Response::HTTP_OK);
+        return response()->json(self::MASSAGE, Response::HTTP_OK);
+    }
+
+    public function filter($list, $key): array
+    {
+        return array_diff($list, (array) $key);
     }
 }
-

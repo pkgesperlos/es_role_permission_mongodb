@@ -25,21 +25,17 @@ class AssignRoleToUserController extends Controller
         };
 
         $user = User::find($request->user_id);
-        $jsonRoleIds = $request->role_ids;
-        $roleIds  = json_decode($jsonRoleIds, true);
+        $roleId  = $request->role_id;
 
-        if($roleIds == Null){
+        if($roleId == Null){
             return Null;
         }
 
-        foreach ($roleIds["ids"] as $roleId) {
+         $role = Role::find($roleId);
 
-            $role = Role::find($roleId);
-
-            if (isset($user) && isset($role)) {
-                $user->assignRole($role);
-            }
-        }
+         if (isset($user) && isset($role)) {
+         	$user->assignRole($role);
+         }
 
         return response()->json(self::MASSAGE,Response::HTTP_OK);
 

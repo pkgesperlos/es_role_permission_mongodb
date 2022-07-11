@@ -223,29 +223,29 @@ php artisan permission:create-permission "user edit" apiMongo //or whatever guar
 
 > ### for assign role to permission
 > <p>yourdomine/es/api/v1/assignRoleToPermission</p>
-> <p>parameters : role_id , permission_ids</p>
-#### example permission_ids json
+> <p>parameters : role_id , permission_id</p>
+#### example permission_id 
 ``` bash 
-{"ids":["62bbd2a45898f83b7905f813","62bbd092b9fa8fc76f011182"]}
+"62bbd092b9fa8fc76f011182"
 ```
 > ### for assign role to user
 > <p>yourdomine/es/api/v1/assignRoleToUser</p>
-> <p>parameters : user_id , role_ids</p>
-#### example role_ids json
+> <p>parameters : user_id , role_id</p>
+#### example role_id
 ``` bash 
-{"ids":["62bbd2a45898f83b7905f813","62bbd092b9fa8fc76f011182"]}
+"62bbd092b9fa8fc76f011182"
 ```
 > ### for sync role or delete and update
 > <p>yourdomine/es/api/v1/syncRole</p>
-> <p>parameters : user_id , role_ids</p>
-#### example role_ids json
+> <p>parameters : user_id , role_id</p>
+#### example role_id json
 ``` bash 
-{"ids":["62bbd2a45898f83b7905f813","62bbd092b9fa8fc76f011182"]}
+"62bbd092b9fa8fc76f011182"
 ```
 > ### for sync permission or delete and update
 > <p>yourdomine/es/api/v1/syncPermission</p>
-> <p>parameters : user_id , permission_ids</p>
-#### example permission_ids json
+> <p>parameters : user_id , permission_id</p>
+#### example permission_id 
 ``` bash 
-{"ids":["62bbd2a45898f83b7905f813","62bbd092b9fa8fc76f011182"]}
+"62bbd092b9fa8fc76f011182"
 ```
